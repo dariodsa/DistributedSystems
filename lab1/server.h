@@ -9,5 +9,5 @@ class Server{
     public:
     bool registerNewSensor(Sensor &s);
     float dist(Sensor &s1, Sensor &s2);
-    Sensor closest(Sensor &s1);
+    Sensor* closest(Sensor &s1);
 };
