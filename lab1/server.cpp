@@ -4,6 +4,16 @@
 
 #define EARTH_RADUIS 6371
 
+bool Server::registerNewSensor(Sensor &s1) {
+    for(int i=0, len = sensors.size(); i < len; ++i) {
+        if(strcmp(sensors[i]->getUsername(), s1.getUsername) == 0) {
+            return false;
+        }
+    }
+    sensors.push_back(&s1);
+    return true;
+}
+
 float Server::dist(Sensor &s1, Sensor &s2) {
     float deltaLon = abs(s1.getLongitude() - s2.getLongitude());
     float deltaLat = abs(s1.getLatitude() - s2.getLatitude());
