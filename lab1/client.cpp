@@ -9,7 +9,16 @@ float getValue(char* fileName, char* parameterName, int time) {
     int pok = 0;
     while( fscanf(pfile, "%s", q) != 0) {
         if(br == 0) {
-
+            int cnt = 0 ;
+            char *token = strtok(q, ",");
+            while (token != NULL) {
+                if(strcmp(token, parameterName) == 0) {
+                    pok = cnt;
+                    break;
+                }
+                ++cnt;
+                token = strtok(NULL, ",");
+            }
         } else {
             if(br - 1 == time) {
                 bool found = false;
