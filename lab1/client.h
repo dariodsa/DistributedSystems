@@ -45,7 +45,5 @@ class Measurement{
         strcpy(this->parameter, parameter);
         this->averageValue = averageValue;
     }
-    float getValue(int time, char* parameter);
-
-
+    
 };
