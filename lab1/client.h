@@ -19,10 +19,19 @@ class Sensor{
         strcpy(this->ipAddress, ipAddress);
     }
     float getLatitude() {
-        return latitude;
+        return this->latitude;
     }
     float getLongitude() {
-        return longitude;
+        return this->longitude;
+    }
+    char* getUsername() {
+        return this->username;
+    }
+    size_t getPort() {
+        return this->port;
+    }
+    char* getIpAddress() {
+        return this->ipAddress;
     }
 };
 
