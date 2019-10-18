@@ -1,6 +1,8 @@
 #include "client.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 
 #define LONGITUDE_MIN 15.87
 #define LONGITUDE_MAX 16
@@ -64,28 +66,36 @@ void usage() {
 float latitude, longitude;
 size_t PORT;
 char name[LEN_USERNAME];
+char file[LEN_USERNAME];
 char parameter[LEN_PARAMETER];
+char ipAddress[LEN_IP_ADDRESS];
 
 int main(int argc, char* argv[]) {
     
     int opt;
-    
-    while( opt = getopt(argc, argv, "x:y:t:n:p:h") != -1) {
+    int br = 1;
+    while( (opt = getopt(argc, argv, "x:y:t:n:p:h")) != -1) {
+        ++br;
         switch(opt) {
             case 'x':
+                ++br;
                 if(optarg) latitude = atof(optarg);
                 break;
             case 'y':
                 if(optarg) longitude = atof(optarg);
+                ++br;
                 break;
             case 't':
                 if(optarg) strcpy(parameter, optarg);
+                ++br;
                 break;
             case 'n':
                 if(optarg) strcpy(name, optarg);
+                ++br;
                 break;
             case 'p':
                 PORT = atoi(optarg);
+                ++br;
                 break;
             case 'h':
                 usage();
@@ -96,6 +106,13 @@ int main(int argc, char* argv[]) {
                 return -1;
         }
     }
+    if(argc > br) {
+        strcpy(file, argv[br]);
+    } else {
+        printf("File parameter is missing.\n");
+        return -1;
+    }
+    
 
     if(!(LATITUDE_MIN <= latitude && latitude <= LATITUDE_MAX &&
        LONGITUDE_MIN <= longitude && longitude <= LONGITUDE_MAX)) {
