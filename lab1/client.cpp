@@ -1,5 +1,12 @@
 #include "client.h"
 #include <stdio.h>
+#include <unistd.h>
+
+#define LONGITUDE_MIN 15.87
+#define LONGITUDE_MAX 16
+#define LATITUDE_MIN 45.75
+#define LATITUDE_MAX 45.85
+
 char q[1000];
 
 float getValue(char* fileName, char* parameterName, int time) {
@@ -41,8 +48,62 @@ float getValue(char* fileName, char* parameterName, int time) {
     return 0;
 }
 
-int main(int argc, char* argv) {
+void usage() {
+    printf("Usage:\n");
+    printf(" ./client [OPTION] [FILE]\n");
+    printf(" Reads the FILE's data and reports it to the main server.\n");
+    printf("Opitions:\n");
+    printf("  -x sensor's latitude\n");
+    printf("  -y sensor's longitude\n");
+    printf("  -t sensor's parameter\n");
+    printf("  -n sensor's name\n");
+    printf("  -h usage\n");
+}
+
+float latitude, longitude;
+size_t PORT;
+char name[LEN_USERNAME];
+char parameter[LEN_PARAMETER];
+
+int main(int argc, char* argv[]) {
     
+    int opt;
+    
+    while( opt = getopt(argc, argv, "x:y:t:n:p:h") != -1) {
+        switch(opt) {
+            case 'x':
+                if(optarg) latitude = atof(optarg);
+                break;
+            case 'y':
+                if(optarg) longitude = atof(optarg);
+                break;
+            case 't':
+                if(optarg) strcpy(parameter, optarg);
+                break;
+            case 'n':
+                if(optarg) strcpy(name, optarg);
+                break;
+            case 'p':
+                PORT = atoi(optarg);
+                break;
+            case 'h':
+                usage();
+                break;
+            default:
+                printf("Parameter %c is not acceptable.\n");
+                usage();
+                return -1;
+        }
+    }
+
+    if(!(LATITUDE_MIN <= latitude && latitude <= LATITUDE_MAX &&
+       LONGITUDE_MIN <= longitude && longitude <= LONGITUDE_MAX)) {
+           printf("Location is not in the acceptable range.\n");
+           printf("Longitude range is [%f, %f] and latitude range is [%f, %f].\n", LONGITUDE_MIN, LONGITUDE_MAX, LATITUDE_MIN, LATITUDE_MAX);
+           printf("Your longitude and latitude is %f %f\n", longitude, latitude);
+           return -1;
+    }
+    Sensor* s = new Sensor(name, latitude, longitude, ipAddress, PORT);
 
     return 0;
 }

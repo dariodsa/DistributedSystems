@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #define LEN_USERNAME 100
 #define LEN_PARAMETER 100
 #define LEN_IP_ADDRESS 20
