@@ -56,6 +56,7 @@ void usage() {
     printf("  -x sensor's latitude\n");
     printf("  -y sensor's longitude\n");
     printf("  -t sensor's parameter\n");
+    printf("  -p port\n");
     printf("  -n sensor's name\n");
     printf("  -h usage\n");
 }
