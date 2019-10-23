@@ -113,7 +113,6 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     
-
     if(!(LATITUDE_MIN <= latitude && latitude <= LATITUDE_MAX &&
        LONGITUDE_MIN <= longitude && longitude <= LONGITUDE_MAX)) {
            printf("Location is not in the acceptable range.\n");

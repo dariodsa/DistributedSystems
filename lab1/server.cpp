@@ -37,6 +37,6 @@ Sensor* Server::closest(Sensor &s1) {
     return *sensors[id];
 }
 
-int main(int argc, char* argv) {
+int main(int argc, char* argv[]) {
 
 }
